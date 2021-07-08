@@ -1,0 +1,25 @@
+{
+	"name": "weather-app-project",
+	"version": "1.0.0",
+	"description": "Weather App project build using my newly learned knowledge on Fetching, Promises, Async/Await.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gizinski-jacek/Weather-App-project.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/gizinski-jacek/Weather-App-project/issues"
+	},
+	"homepage": "https://github.com/gizinski-jacek/Weather-App-project#readme",
+	"devDependencies": {
+		"eslint": "^7.30.0",
+		"prettier": "2.3.2",
+		"webpack": "^5.43.0",
+		"webpack-cli": "^4.7.2"
+	}
+}
