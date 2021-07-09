@@ -7,7 +7,42 @@
 		<link href="style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		<div id="main"></div>
+		<div id="main">
+			<div class="info">
+				<div class="weatherInfo">
+					<div class="weatherInfo_description"></div>
+					<div class="weatherInfo_location"></div>
+					<div class="weatherInfo_date"></div>
+					<div class="weatherInfo_coordLon"></div>
+					<div class="weatherInfo_coordLat"></div>
+					<div class="weatherInfo_temp"></div>
+					<img class="weatherInfo_icon" src="" alt="" />
+				</div>
+				<div class="weatherMoreInfo">
+					<div class="weatherMoreInfo_feels"></div>
+					<div class="weatherMoreInfo_minTemp"></div>
+					<div class="weatherMoreInfo_maxTemp"></div>
+					<div class="weatherMoreInfo_wind"></div>
+					<div class="weatherMoreInfo_humidity"></div>
+					<div class="weatherMoreInfo_pressure"></div>
+				</div>
+			</div>
+			<div class="controls">
+				<input
+					type="text"
+					class="searchBox"
+					placeholder="Search Location"
+				/>
+				<button type="button" class="changeUnits">
+					Show in Imperial
+				</button>
+			</div>
+			<div class="weatherForecast">
+				<div>forecast</div>
+				<div>forecast</div>
+				<div>forecast</div>
+			</div>
+		</div>
 		<script src="main.js" type="text/javascript"></script>
 	</body>
 </html>
