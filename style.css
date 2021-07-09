@@ -1,0 +1,55 @@
+body * {
+	font-size: 16px;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+	height: 100vh;
+	background-color: rgb(255, 225, 200);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#main {
+	height: 100%;
+	display: flex;
+}
+
+.info,
+.weatherForecast {
+	width: 40%;
+}
+
+.controls {
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+}
+
+.weatherForecast {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.weatherInfo_icon {
+	height: 100px;
+	width: 100px;
+	fill: rgb(255, 255, 255);
+}
+
+.controls {
+	font-size: 10px;
+}
+
+.searchBox,
+.changeUnits {
+	font-size: 12px;
+}
+
+.weatherInfo,
+.weatherMoreInfo,
+.weatherForecast {
+	background-color: rgba(255, 255, 255, 0.2);
+}
