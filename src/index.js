@@ -1,11 +1,12 @@
 import { DateTime } from 'luxon';
 
+const keyAPI = '&appid=c40fcb991f5231199fa7282aa3268d17';
 let unitSystem = 'metric';
 let myData = {};
 
 document.querySelector('.searchBox').addEventListener('keypress', (e) => {
 	if (e.key === 'Enter') {
-		requestData(e.target.value);
+		requestData(formatSearchQuery(e.target.value));
 		e.target.value = '';
 	}
 });
@@ -21,12 +22,10 @@ document.querySelector('.changeUnits').addEventListener('click', (e) => {
 	displayData(myData, unitSystem);
 });
 
-async function requestData(location) {
+async function requestData(query) {
 	try {
 		const response = await fetch(
-			'https://api.openweathermap.org/data/2.5/weather?q=' +
-				location +
-				'&appid=c40fcb991f5231199fa7282aa3268d17',
+			'https://api.openweathermap.org/data/2.5/weather?' + query + keyAPI,
 			{
 				mode: 'cors',
 			}
@@ -34,6 +33,7 @@ async function requestData(location) {
 		processData(await response.json());
 	} catch (error) {
 		console.log(error);
+		loadError();
 	}
 }
 
@@ -73,9 +73,12 @@ function processData(data) {
 		pressure: data.main.pressure + ' hPa',
 		humidity: data.main.humidity + '%',
 		location: data.name + ', ' + data.sys.country,
+		timeDay: DateTime.utc()
+			.plus({ seconds: data.timezone })
+			.toFormat('HH:mm, EEEE'),
 		date: DateTime.utc()
 			.plus({ seconds: data.timezone })
-			.toFormat('EEEE, dd.MM.yy, HH:mm'),
+			.toFormat('dd.MM.yyyy'),
 	};
 	updateBackground(myData.weather);
 	displayData(myData, unitSystem);
@@ -101,6 +104,7 @@ function displayData(data, units) {
 	document.querySelector('.weatherInfo_description').textContent =
 		data.weather;
 	document.querySelector('.weatherInfo_location').textContent = data.location;
+	document.querySelector('.weatherInfo_timeDay').textContent = data.timeDay;
 	document.querySelector('.weatherInfo_date').textContent = data.date;
 	document.querySelector('.weatherInfo_coordLat').textContent =
 		'Lat: ' + data.coord.lat;
@@ -126,4 +130,38 @@ function displayData(data, units) {
 		data.pressure;
 }
 
-requestData('Amsterdam');
+function checkSearchType() {
+	const options = document.querySelectorAll('input[type=radio]');
+	let type = null;
+	for (let i = 0; i < options.length; i++) {
+		if (options[i].checked) {
+			type = options[i].id;
+		}
+	}
+	return type;
+}
+
+function formatSearchQuery(inputValue) {
+	let query = null;
+	let arr = null,
+	switch (checkSearchType()) {
+		case 'cityName':
+			return (query = 'q=' + inputValue);
+		case 'cityZip':
+			arr = inputValue.split(/[ \.,]+/);
+			query = 'zip=' + arr[0] + ',' + arr[1];
+			return query;
+		case 'cityLatLon':
+			arr = inputValue.split(' ');
+			query = 'lat=' + arr[0] + '&lon=' + arr[1];
+			return query;
+		case 'cityID':
+			return (query = 'id=' + inputValue);
+	}
+}
+
+function loadError() {
+	alert('err');
+}
+
+requestData('q=Amsterdam');
