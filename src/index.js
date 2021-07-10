@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 
 let unitSystem = 'metric';
+let myData = {};
 
 document.querySelector('.searchBox').addEventListener('keypress', (e) => {
 	if (e.key === 'Enter') {
@@ -17,6 +18,7 @@ document.querySelector('.changeUnits').addEventListener('click', (e) => {
 		e.target.textContent = 'Show in Imperial';
 		unitSystem = 'metric';
 	}
+	displayData(myData, unitSystem);
 });
 
 async function requestData(location) {
@@ -36,7 +38,7 @@ async function requestData(location) {
 }
 
 function processData(data) {
-	const myData = {
+	myData = {
 		coord: {
 			lon: data.coord.lon.toFixed(2),
 			lat: data.coord.lat.toFixed(2),
@@ -54,7 +56,7 @@ function processData(data) {
 				max: (data.main.temp_max - 273.15).toFixed(1) + ' °C',
 			},
 			wind: {
-				kph: (data.wind.speed * 3.6).toFixed(1) + ' km/h',
+				speed: (data.wind.speed * 3.6).toFixed(1) + ' km/h',
 			},
 		},
 		imperial: {
@@ -65,15 +67,15 @@ function processData(data) {
 				max: (data.main.temp_max * 1.8 - 459.67).toFixed(1) + ' °F',
 			},
 			wind: {
-				mph: (data.wind.speed * 2.2369).toFixed(1) + ' mph',
+				speed: (data.wind.speed * 2.2369).toFixed(1) + ' mph',
 			},
 		},
 		pressure: data.main.pressure + ' hPa',
 		humidity: data.main.humidity + '%',
-		location: data.name,
-		date: DateTime.now()
-			.minus({ seconds: 7200 })
-			.toFormat('cccc, dd.MM.yy, HH:MM'),
+		location: data.name + ', ' + data.sys.country,
+		date: DateTime.utc()
+			.plus({ seconds: data.timezone })
+			.toFormat('EEEE, dd.MM.yy, HH:mm'),
 	};
 	updateBackground(myData.weather);
 	displayData(myData, unitSystem);
@@ -117,7 +119,7 @@ function displayData(data, units) {
 	document.querySelector('.weatherMoreInfo_maxTemp').textContent =
 		data[units].temp.max;
 	document.querySelector('.weatherMoreInfo_wind').textContent =
-		data[units].wind.kph;
+		data[units].wind.speed;
 	document.querySelector('.weatherMoreInfo_humidity').textContent =
 		data.humidity;
 	document.querySelector('.weatherMoreInfo_pressure').textContent =
