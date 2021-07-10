@@ -1,5 +1,5 @@
 body * {
-	font-size: 16px;
+	font-size: 12px;
 	font-family: 'Courier New', Courier, monospace;
 }
 
@@ -14,17 +14,28 @@ body {
 #main {
 	height: 100%;
 	display: flex;
+	justify-content: space-between;
 }
 
-.info,
-.weatherForecast {
-	width: 40%;
+.weatherInfo,
+.weatherMoreInfo,
+.weatherForecast,
+.controls {
+	padding: 20px;
+	margin: 20px;
+	border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 .controls {
-	width: 20%;
 	display: flex;
 	flex-direction: column;
+	height: 6rem;
+}
+
+.weatherInfo,
+.weatherMoreInfo {
+	font-size: 16px;
 }
 
 .weatherForecast {
@@ -36,20 +47,77 @@ body {
 .weatherInfo_icon {
 	height: 100px;
 	width: 100px;
-	fill: rgb(255, 255, 255);
 }
 
-.controls {
-	font-size: 10px;
+.searchType {
+	display: flex;
+	flex-direction: row;
+	padding: 5px;
+	width: auto;
+	box-sizing: border-box;
 }
 
-.searchBox,
+input[type='radio'] {
+	display: none;
+}
+
+input[type='radio'] + label {
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	background-color: rgba(100, 225, 255, 0.6);
+	cursor: pointer;
+	display: block;
+	width: 90px;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 10px 5px;
+}
+
+input[type='radio']:checked + label {
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	background-color: rgba(220, 220, 0, 0.6);
+}
+
+#cityName + label {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#cityZip + label {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.weatherMoreInfo {
+	position: fixed;
+	margin-top: 5em;
+}
+
 .changeUnits {
-	font-size: 12px;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	padding: 10px;
+	background-color: rgba(150, 100, 255, 0.6);
 }
 
-.weatherInfo,
-.weatherMoreInfo,
-.weatherForecast {
-	background-color: rgba(255, 255, 255, 0.2);
+.searchBoxInput {
+	outline: none;
+	border: none;
+	padding: 10px;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+::placeholder {
+	color: black;
+	opacity: 0.8;
+}
+
+.searchBox {
+	display: flex;
+	flex-direction: row;
+}
+
+.searchBox * {
+	margin: 5px;
+	width: 160px;
+	border-radius: 5px;
 }
