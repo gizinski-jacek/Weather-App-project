@@ -8,22 +8,63 @@
 	</head>
 	<body>
 		<div id="main">
-			<div class="info">
-				<div class="weatherInfo">
-					<div class="weatherInfo_description"></div>
-					<div class="weatherInfo_location"></div>
-					<div class="weatherInfo_date"></div>
-					<div class="weatherInfo_coordLat"></div>
-					<div class="weatherInfo_coordLon"></div>
-					<div class="weatherInfo_temp"></div>
-					<img class="weatherInfo_icon" src="" alt="" />
-				</div>
-				<div class="weatherMoreInfo">
+			<div class="weatherInfo">
+				<div class="weatherInfo_description"></div>
+				<div class="weatherInfo_location"></div>
+				<div class="weatherInfo_timeDay"></div>
+				<div class="weatherInfo_date"></div>
+				<div class="weatherInfo_coordLat"></div>
+				<div class="weatherInfo_coordLon"></div>
+				<div class="weatherInfo_temp"></div>
+				<img class="weatherInfo_icon" src="" alt="" />
+			</div>
+			<div class="weatherMoreInfo">
+				<div>
+					<img
+						class="weatherMoreInfo_icon"
+						src="/dist/imgs/feel.svg"
+						alt="feelsLike"
+					/>
 					<div class="weatherMoreInfo_feels"></div>
+				</div>
+				<div>
+					<img
+						class="weatherMoreInfo_icon"
+						src="/dist/imgs/minT.svg"
+						alt="feelsLike"
+					/>
 					<div class="weatherMoreInfo_minTemp"></div>
+				</div>
+				<div>
+					<img
+						class="weatherMoreInfo_icon"
+						src="/dist/imgs/maxT.svg"
+						alt="feelsLike"
+					/>
 					<div class="weatherMoreInfo_maxTemp"></div>
+				</div>
+				<div>
+					<img
+						class="weatherMoreInfo_icon"
+						src="/dist/imgs/wind.svg"
+						alt="feelsLike"
+					/>
 					<div class="weatherMoreInfo_wind"></div>
+				</div>
+				<div>
+					<img
+						class="weatherMoreInfo_icon"
+						src="/dist/imgs/hum.svg"
+						alt="feelsLike"
+					/>
 					<div class="weatherMoreInfo_humidity"></div>
+				</div>
+				<div>
+					<img
+						class="weatherMoreInfo_icon"
+						src="/dist/imgs/press.svg"
+						alt="feelsLike"
+					/>
 					<div class="weatherMoreInfo_pressure"></div>
 				</div>
 			</div>
@@ -39,8 +80,15 @@
 					</button>
 				</div>
 				<div class="searchType">
-					<input type="radio" id="cityName" name="locationType" />
+					<input
+						type="radio"
+						id="cityName"
+						name="locationType"
+						checked
+					/>
 					<label for="cityName">City Name</label>
+					<input type="radio" id="cityZip" name="locationType" />
+					<label for="cityZip">Zip-Code</label>
 					<input type="radio" id="cityLatLon" name="locationType" />
 					<label for="cityLatLon">Lat Lon</label>
 					<input type="radio" id="cityID" name="locationType" />
