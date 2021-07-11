@@ -68,13 +68,21 @@
 					<div class="weatherMoreInfo_pressure"></div>
 				</div>
 			</div>
-			<div class="controls">
-				<div class="searchBox">
-					<input
-						type="text"
-						class="searchBoxInput"
-						placeholder="Search Location"
-					/>
+			<div class="allControls">
+				<div class="controls">
+					<div class="searchBox">
+						<input
+							type="search"
+							class="searchBoxInput"
+							placeholder="Search Location"
+						/>
+
+						<img
+							class="searchIcon"
+							src="/dist/imgs/search.svg"
+							alt="search"
+						/>
+					</div>
 					<button type="button" class="changeUnits">
 						Show in Imperial
 					</button>
@@ -84,17 +92,31 @@
 						type="radio"
 						id="cityName"
 						name="locationType"
+						autocomplete="off"
 						checked
 					/>
 					<label for="cityName">City Name</label>
-					<input type="radio" id="cityZip" name="locationType" />
+					<input
+						type="radio"
+						id="cityZip"
+						name="locationType"
+						autocomplete="off"
+					/>
 					<label for="cityZip">Zip-Code</label>
-					<input type="radio" id="cityLatLon" name="locationType" />
+					<input
+						type="radio"
+						id="cityLatLon"
+						name="locationType"
+						autocomplete="off"
+					/>
 					<label for="cityLatLon">Lat Lon</label>
-					<input type="radio" id="cityID" name="locationType" />
+					<input
+						type="radio"
+						id="cityID"
+						name="locationType"
+						autocomplete="off"
+					/>
 					<label for="cityID">City ID</label>
-					<input type="radio" id="cityZip" name="locationType" />
-					<label for="cityZip">Zip-Code</label>
 				</div>
 			</div>
 			<div class="weatherForecast">
