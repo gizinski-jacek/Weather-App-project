@@ -143,7 +143,7 @@ function checkSearchType() {
 
 function formatSearchQuery(inputValue) {
 	let query = null;
-	let arr = null,
+	let arr = null;
 	switch (checkSearchType()) {
 		case 'cityName':
 			return (query = 'q=' + inputValue);
