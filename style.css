@@ -1,5 +1,4 @@
 body * {
-	font-size: 12px;
 	font-family: 'Courier New', Courier, monospace;
 }
 
@@ -12,7 +11,6 @@ body {
 }
 
 #main {
-	height: 100%;
 	display: flex;
 	justify-content: space-between;
 }
@@ -20,22 +18,39 @@ body {
 .weatherInfo,
 .weatherMoreInfo,
 .weatherForecast,
-.controls {
+.allControls {
+	font-size: 14px;
 	padding: 20px;
 	margin: 20px;
 	border-radius: 10px;
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
-.controls {
+.weatherMoreInfo,
+.weatherMoreInfo * {
 	display: flex;
-	flex-direction: column;
-	height: 6rem;
+	flex-direction: row;
 }
 
-.weatherInfo,
+.weatherInfo div,
+.weatherMoreInfo div,
+.weatherForecast div {
+	padding: 5px;
+}
+
 .weatherMoreInfo {
-	font-size: 16px;
+	position: absolute;
+	bottom: 0;
+}
+
+.allControls {
+	font-size: 12px;
+	display: flex;
+	flex-direction: column;
+}
+
+.weatherInfo_description {
+	font-size: 20px;
 }
 
 .weatherForecast {
@@ -45,16 +60,13 @@ body {
 }
 
 .weatherInfo_icon {
-	height: 100px;
-	width: 100px;
+	height: 96px;
+	width: 96px;
 }
 
-.searchType {
-	display: flex;
-	flex-direction: row;
-	padding: 5px;
-	width: auto;
-	box-sizing: border-box;
+.weatherMoreInfo_icon {
+	height: 32px;
+	width: 32px;
 }
 
 input[type='radio'] {
@@ -63,18 +75,26 @@ input[type='radio'] {
 
 input[type='radio'] + label {
 	border: 1px solid rgba(0, 0, 0, 0.5);
-	background-color: rgba(100, 225, 255, 0.6);
+	background-color: rgba(100, 225, 255, 0.5);
 	cursor: pointer;
 	display: block;
 	width: 90px;
 	box-sizing: border-box;
 	text-align: center;
-	padding: 10px 5px;
+	padding: 13px 0;
+}
+
+input[type='radio']:hover + label {
+	background-color: rgba(100, 225, 255, 0.6);
 }
 
 input[type='radio']:checked + label {
 	border: 1px solid rgba(0, 0, 0, 0.5);
-	background-color: rgba(220, 220, 0, 0.6);
+	background-color: rgba(225, 225, 0, 0.5);
+}
+
+input[type='radio']:checked:hover + label {
+	background-color: rgba(225, 225, 0, 0.6);
 }
 
 #cityName + label {
@@ -82,28 +102,42 @@ input[type='radio']:checked + label {
 	border-bottom-left-radius: 5px;
 }
 
-#cityZip + label {
+#cityID + label {
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
 
-.weatherMoreInfo {
-	position: fixed;
-	margin-top: 5em;
-}
-
 .changeUnits {
+	padding: 11px 10px;
 	cursor: pointer;
 	border: 1px solid rgba(0, 0, 0, 0.5);
-	padding: 10px;
-	background-color: rgba(150, 100, 255, 0.6);
+	background-color: rgba(150, 100, 255, 0.5);
+	border-radius: 5px;
+	margin-left: 10px;
+}
+
+.changeUnits:hover {
+	background-color: rgba(175, 100, 255, 0.6);
+}
+
+.searchBox {
+	display: flex;
+	flex-direction: row;
+	position: relative;
 }
 
 .searchBoxInput {
 	outline: none;
 	border: none;
+	width: 200px;
+	height: 40px;
+	background-color: rgba(255, 255, 255, 0.5);
 	padding: 10px;
-	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 5px;
+}
+
+.searchBoxInput:hover {
+	background-color: rgba(255, 255, 255, 0.6);
 }
 
 ::placeholder {
@@ -111,13 +145,29 @@ input[type='radio']:checked + label {
 	opacity: 0.8;
 }
 
-.searchBox {
+.controls {
 	display: flex;
 	flex-direction: row;
 }
 
-.searchBox * {
-	margin: 5px;
-	width: 160px;
-	border-radius: 5px;
+.searchType {
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	margin-top: 10px;
+}
+
+.searchIcon {
+	position: absolute;
+	right: 0;
+	opacity: 0.8;
+	pointer-events: none;
+	padding: 12px;
+}
+
+.searchBox div {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	position: relative;
 }
