@@ -29,17 +29,36 @@ body {
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
+img,
 .weatherBasic div,
-.weatherExtra div,
-.weatherForecast div {
+.weatherExtra div div,
+.weatherExtra div img,
+.forecastHourly,
+.forecastDaily {
 	padding: 5px;
+}
+
+.weatherHourlyForecast2,
+.weatherHourlyForecast3 {
+	display: block;
+}
+.forecastDaily,
+.forecastHourly {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 350px;
+}
+
+.forecastDaily div,
+.forecastHourly div {
+	padding: 5px 15px;
 }
 
 .allControls {
 	font-size: 12px;
 	display: flex;
 	height: 100px;
-
 	flex-direction: column;
 }
 
@@ -61,6 +80,11 @@ body {
 .weatherExtra_icon {
 	height: 32px;
 	width: 32px;
+}
+
+.weatherForecast_icon {
+	height: 24px;
+	width: 24px;
 }
 
 input[type='radio'] {
