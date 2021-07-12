@@ -8,11 +8,14 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+	display: flex;
+	flex-direction: column;
 }
 
-#main {
+.weatherContainer {
 	display: flex;
 	justify-content: space-between;
+	padding: 20px;
 }
 
 .weatherBasic,
@@ -26,26 +29,17 @@ body {
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
-.weatherExtra,
-.weatherExtra * {
-	display: flex;
-	flex-direction: row;
-}
-
 .weatherBasic div,
 .weatherExtra div,
 .weatherForecast div {
 	padding: 5px;
 }
 
-.weatherExtra {
-	position: absolute;
-	bottom: 0;
-}
-
 .allControls {
 	font-size: 12px;
 	display: flex;
+	height: 100px;
+
 	flex-direction: column;
 }
 
@@ -154,7 +148,7 @@ input[type='radio']:checked:hover + label {
 	display: flex;
 	flex-direction: row;
 	box-sizing: border-box;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 .searchIcon {
@@ -178,4 +172,12 @@ input[type='radio']:checked:hover + label {
 
 :focus::placeholder {
 	opacity: 0.3;
+}
+
+.forecastContainer {
+	display: flex;
+	padding: 20px;
+	margin: 20px;
+	margin-top: auto;
+	justify-content: space-evenly;
 }
