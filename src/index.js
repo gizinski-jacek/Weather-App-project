@@ -6,7 +6,8 @@ const changeUnits = document.querySelector('.changeUnits');
 const searchIcon = document.querySelector('.searchIcon');
 
 const keyAPI = 'c40fcb991f5231199fa7282aa3268d17';
-let unitSystem = 'metric';
+
+let unitsSystem = 'metric';
 
 searchIcon.addEventListener('click', () => {
 	APIDataHandler(searchBoxInput.value);
@@ -21,14 +22,14 @@ searchBoxInput.addEventListener('keypress', (e) => {
 });
 
 changeUnits.addEventListener('click', (e) => {
-	if (unitSystem === 'metric') {
+	if (unitsSystem === 'metric') {
 		e.target.textContent = 'Show in Metric';
-		unitSystem = 'imperial';
-	} else if (unitSystem === 'imperial') {
+		unitsSystem = 'imperial';
+	} else if (unitsSystem === 'imperial') {
 		e.target.textContent = 'Show in Imperial';
-		unitSystem = 'metric';
+		unitsSystem = 'metric';
 	}
-	dataRenderHandler(unitSystem);
+	dataRenderHandler();
 });
 
 // function processData(rawData, locData) {
@@ -89,7 +90,7 @@ async function renderBackgroundImg(query) {
 	}
 }
 
-function renderBasicWeather(data) {
+function renderBasicWeather(data, units) {
 	document.querySelector('.weatherBasic_description').textContent =
 		data.current.weather[0].description
 			.split(' ')
@@ -110,12 +111,11 @@ function renderBasicWeather(data) {
 		data.current.temp + ' K';
 	document.querySelector('.weatherBasic_icon').src =
 		'imgs/' + data.current.weather[0].icon + '.svg';
-	document.querySelector('.weatherBasic_icon').alt = data.description;
 }
 
-function renderExtraWeather(data) {
+function renderExtraWeather(data, units) {
 	document.querySelector('.weatherExtra_feels').textContent =
-		data.current.feels_like + ' K';
+		data.current.feels_like;
 	document.querySelector('.weatherExtra_wind').textContent =
 		data.current.wind_speed;
 	document.querySelector('.weatherExtra_humidity').textContent =
@@ -124,31 +124,51 @@ function renderExtraWeather(data) {
 		data.current.pressure;
 }
 
-function renderHourlyForecast(data) {
-	const days = document.querySelectorAll('.forecastHourly');
-	for (let i = 0; i < 8; i++) {
-		days[i].textContent = data.hourly[i].temp;
-	}
-	console.log(DateTime.fromSeconds(data.daily[0].dt).toFormat('EEEE, dd.MM'));
-}
-
-function renderDailyForecast(data) {
+function renderDailyForecast(data, units) {
 	const days = document.querySelectorAll('.forecastDaily');
 	for (let i = 0; i < 8; i++) {
-		days[i].textContent = data.daily[i].temp.day;
+		let temp = document.createElement('div');
+		temp.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
+			'EEE, dd.MM.yy'
+		);
+		days[i].append(temp);
+		let date = document.createElement('div');
+		date.textContent = data.daily[i].temp.day;
+		days[i].append(date);
+		let icon = document.createElement('img');
+		icon.src = 'imgs/' + data.daily[i].weather[0].icon + '.svg';
+		icon.classList.add('weatherForecast_icon');
+		days[i].append(icon);
+		days[i].style.display = 'flex';
 	}
-	console.log(
-		DateTime.fromSeconds(data.hourly[0].dt).toFormat('HH:mm, EEEE, dd.MM')
-	);
+}
+
+function renderHourlyForecast(data, units) {
+	const days = document.querySelectorAll('.forecastHourly');
+	for (let i = 0; i < 24; i++) {
+		let temp = document.createElement('div');
+		temp.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
+			'EEE, HH:mm'
+		);
+		days[i].append(temp);
+		let date = document.createElement('div');
+		date.textContent = data.hourly[i].temp;
+		days[i].append(date);
+		let icon = document.createElement('img');
+		icon.src = 'imgs/' + data.hourly[i].weather[0].icon + '.svg';
+		icon.classList.add('weatherForecast_icon');
+		days[i].append(icon);
+		days[i].style.display = 'flex';
+	}
 }
 
 function dataRenderHandler(data) {
 	console.log(data);
 	renderBackgroundImg(data.current.weather[0].description);
-	renderBasicWeather(data);
-	renderExtraWeather(data);
-	renderHourlyForecast(data);
-	renderDailyForecast(data);
+	renderBasicWeather(data, unitsSystem);
+	renderExtraWeather(data, unitsSystem);
+	renderDailyForecast(data, unitsSystem);
+	renderHourlyForecast(data, unitsSystem);
 }
 
 async function APIDataHandler(userInput) {
