@@ -8,64 +8,48 @@
 	</head>
 	<body>
 		<div id="main">
-			<div class="weatherInfo">
-				<div class="weatherInfo_description"></div>
-				<div class="weatherInfo_location"></div>
-				<div class="weatherInfo_timeDay"></div>
-				<div class="weatherInfo_date"></div>
-				<div class="weatherInfo_coordLat"></div>
-				<div class="weatherInfo_coordLon"></div>
-				<div class="weatherInfo_temp"></div>
-				<img class="weatherInfo_icon" src="" alt="" />
+			<div class="weatherBasic">
+				<div class="weatherBasic_description"></div>
+				<div class="weatherBasic_location"></div>
+				<div class="weatherBasic_timeWeekday"></div>
+				<div class="weatherBasic_date"></div>
+				<div class="weatherBasic_coordLat"></div>
+				<div class="weatherBasic_coordLon"></div>
+				<div class="weatherBasic_temp"></div>
+				<img class="weatherBasic_icon" src="" alt="" />
 			</div>
-			<div class="weatherMoreInfo">
+			<div class="weatherExtra">
 				<div>
 					<img
-						class="weatherMoreInfo_icon"
+						class="weatherExtra_icon"
 						src="/dist/imgs/feel.svg"
 						alt="feelsLike"
 					/>
-					<div class="weatherMoreInfo_feels"></div>
+					<div class="weatherExtra_feels"></div>
 				</div>
 				<div>
 					<img
-						class="weatherMoreInfo_icon"
-						src="/dist/imgs/minT.svg"
-						alt="feelsLike"
-					/>
-					<div class="weatherMoreInfo_minTemp"></div>
-				</div>
-				<div>
-					<img
-						class="weatherMoreInfo_icon"
-						src="/dist/imgs/maxT.svg"
-						alt="feelsLike"
-					/>
-					<div class="weatherMoreInfo_maxTemp"></div>
-				</div>
-				<div>
-					<img
-						class="weatherMoreInfo_icon"
+						class="weatherExtra_icon"
 						src="/dist/imgs/wind.svg"
 						alt="feelsLike"
 					/>
-					<div class="weatherMoreInfo_wind"></div>
+					<div class="weatherExtra_wind"></div>
 				</div>
 				<div>
 					<img
-						class="weatherMoreInfo_icon"
+						class="weatherExtra_icon"
 						src="/dist/imgs/hum.svg"
 						alt="feelsLike"
 					/>
-					<div class="weatherMoreInfo_humidity"></div>
+					<div class="weatherExtra_humidity"></div>
 				</div>
 				<div>
 					<img
-						class="weatherMoreInfo_icon"
+						class="weatherExtra_icon"
 						src="/dist/imgs/press.svg"
 						alt="feelsLike"
 					/>
-					<div class="weatherMoreInfo_pressure"></div>
+					<div class="weatherExtra_pressure"></div>
 				</div>
 			</div>
 			<div class="allControls">
@@ -74,9 +58,8 @@
 						<input
 							type="search"
 							class="searchBoxInput"
-							placeholder="Search Location"
+							placeholder="e.g. Amsterdam, NL"
 						/>
-
 						<img
 							class="searchIcon"
 							src="/dist/imgs/search.svg"
