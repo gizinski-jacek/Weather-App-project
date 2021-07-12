@@ -1,17 +1,26 @@
 import { DateTime } from 'luxon';
 
-const keyAPI = '&appid=c40fcb991f5231199fa7282aa3268d17';
-let unitSystem = 'metric';
-let myData = {};
+const allRadioInput = document.querySelectorAll('input[type=radio');
+const searchBoxInput = document.querySelector('.searchBoxInput');
+const changeUnits = document.querySelector('.changeUnits');
+const searchIcon = document.querySelector('.searchIcon');
 
-document.querySelector('.searchBox').addEventListener('keypress', (e) => {
+const keyAPI = 'c40fcb991f5231199fa7282aa3268d17';
+let unitSystem = 'metric';
+
+searchIcon.addEventListener('click', () => {
+	APIDataHandler(searchBoxInput.value);
+	searchBoxInput.value = '';
+});
+
+searchBoxInput.addEventListener('keypress', (e) => {
 	if (e.key === 'Enter') {
-		requestData(formatSearchQuery(e.target.value));
-		e.target.value = '';
+		APIDataHandler(searchBoxInput.value);
+		searchBoxInput.value = '';
 	}
 });
 
-document.querySelector('.changeUnits').addEventListener('click', (e) => {
+changeUnits.addEventListener('click', (e) => {
 	if (unitSystem === 'metric') {
 		e.target.textContent = 'Show in Metric';
 		unitSystem = 'imperial';
@@ -19,70 +28,50 @@ document.querySelector('.changeUnits').addEventListener('click', (e) => {
 		e.target.textContent = 'Show in Imperial';
 		unitSystem = 'metric';
 	}
-	displayData(myData, unitSystem);
+	dataDisplayHandler(unitSystem);
 });
 
-async function requestData(query) {
-	try {
-		const response = await fetch(
-			'https://api.openweathermap.org/data/2.5/weather?' + query + keyAPI,
-			{
-				mode: 'cors',
-			}
-		);
-		processData(await response.json());
-	} catch (error) {
-		console.log(error);
-		loadError();
-	}
-}
-
-function processData(data) {
-	myData = {
-		coord: {
-			lon: data.coord.lon.toFixed(2),
-			lat: data.coord.lat.toFixed(2),
-		},
-		weather: data.weather[0].description
-			.split(' ')
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join(' '),
-		icon: data.weather[0].icon,
-		metric: {
-			temp: {
-				current: (data.main.temp - 273.15).toFixed(1) + ' °C',
-				feels: (data.main.feels_like - 273.15).toFixed(1) + ' °C',
-				min: (data.main.temp_min - 273.15).toFixed(1) + ' °C',
-				max: (data.main.temp_max - 273.15).toFixed(1) + ' °C',
-			},
-			wind: {
-				speed: (data.wind.speed * 3.6).toFixed(1) + ' km/h',
-			},
-		},
-		imperial: {
-			temp: {
-				current: (data.main.temp * 1.8 - 459.67).toFixed(1) + ' °F',
-				feels: (data.main.feels_like * 1.8 - 459.67).toFixed(1) + ' °F',
-				min: (data.main.temp_min * 1.8 - 459.67).toFixed(1) + ' °F',
-				max: (data.main.temp_max * 1.8 - 459.67).toFixed(1) + ' °F',
-			},
-			wind: {
-				speed: (data.wind.speed * 2.2369).toFixed(1) + ' mph',
-			},
-		},
-		pressure: data.main.pressure + ' hPa',
-		humidity: data.main.humidity + '%',
-		location: data.name + ', ' + data.sys.country,
-		timeDay: DateTime.utc()
-			.plus({ seconds: data.timezone })
-			.toFormat('HH:mm, EEEE'),
-		date: DateTime.utc()
-			.plus({ seconds: data.timezone })
-			.toFormat('dd.MM.yyyy'),
-	};
-	updateBackground(myData.weather);
-	displayData(myData, unitSystem);
-}
+// function processData(rawData, locData) {
+// 	const processedData = {
+// 		lat: rawData.lat,
+// 		lon: rawData.lon,
+// 		location: locData.city + ', ' + locData.country,
+// 		timeWeekday: DateTime.now()
+// 			.setZone(rawData.timezone)
+// 			.toFormat('HH:mm, EEEE'),
+// 		date: DateTime.now().setZone(rawData.timezone).toFormat('dd.MM.yyyy'),
+// 		weather: rawData.current.weather[0].description
+// 			.split(' ')
+// 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+// 			.join(' '),
+// 		icon: rawData.current.weather[0].icon,
+// 		pressure: rawData.current.pressure + ' hPa',
+// 		humidity: rawData.current.humidity + '%',
+// 		metric: {
+// 			temp: {
+// 				current: (rawData.current.temp - 273.15).toFixed(1) + ' °C',
+// 				feels: (rawData.current.feels_like - 273.15).toFixed(1) + ' °C',
+// 			},
+// 			wind: {
+// 				speed: (rawData.current.wind_speed * 3.6).toFixed(1) + ' km/h',
+// 			},
+// 		},
+// 		imperial: {
+// 			temp: {
+// 				current:
+// 					(rawData.current.temp * 1.8 - 459.67).toFixed(1) + ' °F',
+// 				feels:
+// 					(rawData.current.feels_like * 1.8 - 459.67).toFixed(1) +
+// 					' °F',
+// 			},
+// 			wind: {
+// 				speed:
+// 					(rawData.current.wind_speed * 2.2369).toFixed(1) + ' mph',
+// 			},
+// 		},
+// 	};
+// 	return processedData;
+// }
 
 async function updateBackground(query) {
 	try {
@@ -100,63 +89,76 @@ async function updateBackground(query) {
 	}
 }
 
-function displayData(data, units) {
-	document.querySelector('.weatherInfo_description').textContent =
+function displayBasicWeather(data, units) {
+	document.querySelector('.weatherBasic_description').textContent =
 		data.weather;
-	document.querySelector('.weatherInfo_location').textContent = data.location;
-	document.querySelector('.weatherInfo_timeDay').textContent = data.timeDay;
-	document.querySelector('.weatherInfo_date').textContent = data.date;
-	document.querySelector('.weatherInfo_coordLat').textContent =
-		'Lat: ' + data.coord.lat;
-	document.querySelector('.weatherInfo_coordLon').textContent =
-		'Lon: ' + data.coord.lon;
-	document.querySelector('.weatherInfo_temp').textContent =
+	document.querySelector('.weatherBasic_location').textContent =
+		data.location;
+	document.querySelector('.weatherBasic_timeWeekday').textContent =
+		data.timeWeekday;
+	document.querySelector('.weatherBasic_date').textContent = data.date;
+	document.querySelector('.weatherBasic_coordLat').textContent =
+		'Lat: ' + data.lat;
+	document.querySelector('.weatherBasic_coordLon').textContent =
+		'Lon: ' + data.lon;
+	document.querySelector('.weatherBasic_temp').textContent =
 		data[units].temp.current;
-	document.querySelector('.weatherInfo_icon').src =
+	document.querySelector('.weatherBasic_icon').src =
 		'imgs/' + data.icon + '.svg';
-	document.querySelector('.weatherInfo_icon').alt = data.description;
+	document.querySelector('.weatherBasic_icon').alt = data.description;
+}
 
-	document.querySelector('.weatherMoreInfo_feels').textContent =
+function displayExtraWeather(data, units) {
+	document.querySelector('.weatherExtra_feels').textContent =
 		data[units].temp.feels;
-	document.querySelector('.weatherMoreInfo_minTemp').textContent =
-		data[units].temp.min;
-	document.querySelector('.weatherMoreInfo_maxTemp').textContent =
-		data[units].temp.max;
-	document.querySelector('.weatherMoreInfo_wind').textContent =
+	document.querySelector('.weatherExtra_wind').textContent =
 		data[units].wind.speed;
-	document.querySelector('.weatherMoreInfo_humidity').textContent =
+	document.querySelector('.weatherExtra_humidity').textContent =
 		data.humidity;
-	document.querySelector('.weatherMoreInfo_pressure').textContent =
+	document.querySelector('.weatherExtra_pressure').textContent =
 		data.pressure;
 }
 
-function checkSearchType() {
-	const options = document.querySelectorAll('input[type=radio]');
+// function displayMinutelyForecast(data, units) {}
+
+function displayHourlyForecast(data, units) {}
+
+function displayDailyForecast(data, units) {}
+
+function dataDisplayHandler() {
+	displayBasicWeather();
+	displayExtraWeather();
+	displayMinutelyForecast();
+	displayHourlyForecast();
+	displayDailyForecast();
+}
+
+function checkedRadioID() {
 	let type = null;
-	for (let i = 0; i < options.length; i++) {
-		if (options[i].checked) {
-			type = options[i].id;
+	for (let i = 0; i < allRadioInput.length; i++) {
+		if (allRadioInput[i].checked) {
+			type = allRadioInput[i].id;
 		}
 	}
 	return type;
 }
 
-function formatSearchQuery(inputValue) {
+function formatQuery(value) {
 	let query = null;
 	let arr = null;
-	switch (checkSearchType()) {
+	switch (checkedRadioID()) {
 		case 'cityName':
-			return (query = 'q=' + inputValue);
+			return (query = 'q=' + value);
 		case 'cityZip':
-			arr = inputValue.split(/[ \.,]+/);
+			arr = value.split(/[ \.,]+/);
 			query = 'zip=' + arr[0] + ',' + arr[1];
 			return query;
 		case 'cityLatLon':
-			arr = inputValue.split(' ');
+			arr = value.split(/[ \,]+/);
 			query = 'lat=' + arr[0] + '&lon=' + arr[1];
 			return query;
 		case 'cityID':
-			return (query = 'id=' + inputValue);
+			return (query = 'id=' + value);
 	}
 }
 
@@ -164,4 +166,81 @@ function loadError() {
 	alert('err');
 }
 
-requestData('q=Amsterdam');
+allRadioInput.forEach((radio) => {
+	radio.addEventListener('click', () => {
+		switch (checkedRadioID()) {
+			case 'cityName':
+				searchBoxInput.placeholder = 'e.g. Amsterdam, NL';
+				break;
+			case 'cityZip':
+				searchBoxInput.placeholder = 'e.g. 94040, US';
+				break;
+			case 'cityLatLon':
+				searchBoxInput.placeholder = 'e.g. 35.56 139.2';
+				break;
+			case 'cityID':
+				searchBoxInput.placeholder = 'e.g. 2172797';
+				break;
+		}
+	});
+});
+
+async function APIDataHandler(userInput) {
+	try {
+		const query = formatQuery(userInput);
+		const locationData = await getCoordinatesFromAPI(query);
+		const responseData = await getOneCallDataFromAPI(locationData);
+		dataDisplayHandler(responseData);
+		updateBackground(responseData.weather[0].description);
+		displayBasicWeather(responseData, unitSystem);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+async function getCoordinatesFromAPI(query) {
+	try {
+		const response = await fetch(
+			'https://api.openweathermap.org/data/2.5/weather?' +
+				query +
+				'&appid=' +
+				keyAPI,
+			{
+				mode: 'cors',
+			}
+		);
+		const data = await response.json();
+		const coords = {
+			lat: data.coord.lat,
+			lon: data.coord.lon,
+			city: data.name,
+			country: data.sys.country,
+		};
+		return coords;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+async function getOneCallDataFromAPI(loc) {
+	try {
+		const response = await fetch(
+			'https://api.openweathermap.org/data/2.5/onecall?lat=' +
+				loc.lat +
+				'&lon=' +
+				loc.lon +
+				'&exclude=minutely&appid=' +
+				keyAPI,
+			{
+				mode: 'cors',
+			}
+		);
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+// Amsterdam 52.374, lon: 4.8897
+APIDataHandler('Amsterdam, NL');
