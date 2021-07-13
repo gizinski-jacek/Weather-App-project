@@ -8,6 +8,7 @@ const searchIcon = document.querySelector('.searchIcon');
 const keyAPI = 'c40fcb991f5231199fa7282aa3268d17';
 
 let unitsSystem = 'metric';
+let myData = {};
 
 searchIcon.addEventListener('click', () => {
 	APIDataHandler(searchBoxInput.value);
@@ -23,74 +24,16 @@ searchBoxInput.addEventListener('keypress', (e) => {
 
 changeUnits.addEventListener('click', (e) => {
 	if (unitsSystem === 'metric') {
-		e.target.textContent = 'Show in Metric';
+		e.target.textContent = 'Switch to Metric';
 		unitsSystem = 'imperial';
 	} else if (unitsSystem === 'imperial') {
-		e.target.textContent = 'Show in Imperial';
+		e.target.textContent = 'Switch to Imperial';
 		unitsSystem = 'metric';
 	}
 	dataRenderHandler();
 });
 
-// function processData(rawData, locData) {
-// 	const processedData = {
-// 		lat: rawData.lat,
-// 		lon: rawData.lon,
-// 		location: locData.city + ', ' + locData.country,
-// 		timeWeekday: DateTime.now()
-// 			.setZone(rawData.timezone)
-// 			.toFormat('HH:mm, EEEE'),
-// 		date: DateTime.now().setZone(rawData.timezone).toFormat('dd.MM.yyyy'),
-// 		weather: rawData.current.weather[0].description
-// 			.split(' ')
-// 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-// 			.join(' '),
-// 		icon: rawData.current.weather[0].icon,
-// 		pressure: rawData.current.pressure + ' hPa',
-// 		humidity: rawData.current.humidity + '%',
-// 		metric: {
-// 			temp: {
-// 				current: (rawData.current.temp - 273.15).toFixed(1) + ' °C',
-// 				feels: (rawData.current.feels_like - 273.15).toFixed(1) + ' °C',
-// 			},
-// 			wind: {
-// 				speed: (rawData.current.wind_speed * 3.6).toFixed(1) + ' km/h',
-// 			},
-// 		},
-// 		imperial: {
-// 			temp: {
-// 				current:
-// 					(rawData.current.temp * 1.8 - 459.67).toFixed(1) + ' °F',
-// 				feels:
-// 					(rawData.current.feels_like * 1.8 - 459.67).toFixed(1) +
-// 					' °F',
-// 			},
-// 			wind: {
-// 				speed:
-// 					(rawData.current.wind_speed * 2.2369).toFixed(1) + ' mph',
-// 			},
-// 		},
-// 	};
-// 	return processedData;
-// }
-
-async function renderBackgroundImg(query) {
-	try {
-		const response = await fetch(
-			'https://api.giphy.com/v1/gifs/translate?api_key=tdmQtHTXgoVAneoHsjqOQsCHo6Snca9k&s=' +
-				query,
-			{ mode: 'cors' }
-		);
-		const data = await response.json();
-		const image = data.data.images.original_still.url;
-		document.querySelector('body').style.backgroundImage =
-			'url(' + image + ')';
-	} catch (error) {
-		console.log(error);
-	}
-}
-
-function renderBasicWeather(data, units) {
+function renderBasicWeather(data) {
 	document.querySelector('.weatherBasic_description').textContent =
 		data.current.weather[0].description
 			.split(' ')
@@ -104,71 +47,88 @@ function renderBasicWeather(data, units) {
 		.setZone(data.timezone)
 		.toFormat('dd.MM.yyyy');
 	document.querySelector('.weatherBasic_coordLat').textContent =
-		'Lat: ' + data.lat;
+		'Lat: ' + data.lat.toFixed(2);
 	document.querySelector('.weatherBasic_coordLon').textContent =
-		'Lon: ' + data.lon;
-	document.querySelector('.weatherBasic_temp').textContent =
-		data.current.temp + ' K';
+		'Lon: ' + data.lon.toFixed(2);
+	document.querySelector('.weatherBasic_temp').textContent = convertTemp(
+		data.current.temp
+	);
 	document.querySelector('.weatherBasic_icon').src =
 		'imgs/' + data.current.weather[0].icon + '.svg';
 }
 
-function renderExtraWeather(data, units) {
-	document.querySelector('.weatherExtra_feels').textContent =
-		data.current.feels_like;
-	document.querySelector('.weatherExtra_wind').textContent =
-		data.current.wind_speed;
+function renderExtraWeather(data) {
+	document.querySelector('.weatherExtra_feels').textContent = convertTemp(
+		data.current.feels_like
+	);
+	document.querySelector('.weatherExtra_wind').textContent = convertSpeed(
+		data.current.wind_speed
+	);
 	document.querySelector('.weatherExtra_humidity').textContent =
-		data.current.humidity;
+		data.current.humidity + ' %';
 	document.querySelector('.weatherExtra_pressure').textContent =
-		data.current.pressure;
+		data.current.pressure + ' hPa';
 }
 
-function renderDailyForecast(data, units) {
+function renderDailyForecast(data) {
 	const days = document.querySelectorAll('.forecastDaily');
 	for (let i = 0; i < 8; i++) {
+		days[i].innerHTML = '';
 		let temp = document.createElement('div');
 		temp.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
 			'EEE, dd.MM.yy'
 		);
 		days[i].append(temp);
 		let date = document.createElement('div');
-		date.textContent = data.daily[i].temp.day;
+		date.textContent = convertTemp(data.daily[i].temp.day);
 		days[i].append(date);
 		let icon = document.createElement('img');
 		icon.src = 'imgs/' + data.daily[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
 		days[i].append(icon);
-		days[i].style.display = 'flex';
 	}
 }
 
-function renderHourlyForecast(data, units) {
+function renderHourlyForecast(data) {
 	const days = document.querySelectorAll('.forecastHourly');
 	for (let i = 0; i < 24; i++) {
+		days[i].innerHTML = '';
 		let temp = document.createElement('div');
 		temp.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
 			'EEE, HH:mm'
 		);
 		days[i].append(temp);
 		let date = document.createElement('div');
-		date.textContent = data.hourly[i].temp;
+		date.textContent = convertTemp(data.hourly[i].temp);
 		days[i].append(date);
 		let icon = document.createElement('img');
 		icon.src = 'imgs/' + data.hourly[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
 		days[i].append(icon);
-		days[i].style.display = 'flex';
 	}
 }
 
-function dataRenderHandler(data) {
-	console.log(data);
-	renderBackgroundImg(data.current.weather[0].description);
-	renderBasicWeather(data, unitsSystem);
-	renderExtraWeather(data, unitsSystem);
-	renderDailyForecast(data, unitsSystem);
-	renderHourlyForecast(data, unitsSystem);
+function convertTemp(temp) {
+	if (unitsSystem === 'metric') {
+		return (temp - 273.15).toFixed(1) + ' °C';
+	} else if ('imperial') {
+		return (temp * 1.8 - 459.67).toFixed(1) + ' °F';
+	}
+}
+
+function convertSpeed(speed) {
+	if (unitsSystem === 'metric') {
+		return (speed * 3.6).toFixed(1) + ' km/h';
+	} else if ('imperial') {
+		return (speed * 2.2369).toFixed(1) + ' mph';
+	}
+}
+
+function dataRenderHandler() {
+	renderBasicWeather(myData);
+	renderExtraWeather(myData);
+	renderDailyForecast(myData);
+	renderHourlyForecast(myData);
 }
 
 async function APIDataHandler(userInput) {
@@ -176,7 +136,8 @@ async function APIDataHandler(userInput) {
 		const query = formatQuery(userInput);
 		const locationData = await getCoordinates(query);
 		const responseData = await getOneCallData(locationData);
-		dataRenderHandler({ ...responseData, ...locationData });
+		myData = { ...responseData, ...locationData };
+		dataRenderHandler();
 	} catch (error) {
 		console.log(error);
 	}
