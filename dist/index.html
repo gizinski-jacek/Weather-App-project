@@ -3,20 +3,25 @@
 	<head>
 		<title>Weather App</title>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link href="reset.css" rel="stylesheet" type="text/css" />
 		<link href="style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 		<div class="weatherContainer">
-			<div class="weatherBasic">
-				<div class="weatherBasic_description"></div>
-				<div class="weatherBasic_location"></div>
-				<div class="weatherBasic_timeWeekday"></div>
-				<div class="weatherBasic_date"></div>
-				<div class="weatherBasic_coordLat"></div>
-				<div class="weatherBasic_coordLon"></div>
-				<div class="weatherBasic_temp"></div>
-				<img class="weatherBasic_icon" src="" />
+			<div style="display: flex">
+				<div class="weatherBasic">
+					<div class="weatherBasic_description"></div>
+					<div class="weatherBasic_location"></div>
+					<div class="weatherBasic_timeWeekday"></div>
+					<div class="weatherBasic_date"></div>
+					<div class="weatherBasic_coordLat"></div>
+					<div class="weatherBasic_coordLon"></div>
+				</div>
+				<div class="weatherBasic">
+					<div class="weatherBasic_temp"></div>
+					<img class="weatherBasic_icon" src="" />
+				</div>
 			</div>
 			<div class="allControls">
 				<div class="controls">
@@ -33,7 +38,7 @@
 						/>
 					</div>
 					<button type="button" class="changeUnits">
-						Show in Imperial
+						Switch to Imperial
 					</button>
 				</div>
 				<div class="searchType">
@@ -104,7 +109,7 @@
 			</div>
 		</div>
 		<div class="forecastContainer">
-			<div class="weatherDailyForecast1">
+			<div class="weatherDailyForecast">
 				<div id="forecastDay1" class="forecastDaily"></div>
 				<div id="forecastDay2" class="forecastDaily"></div>
 				<div id="forecastDay3" class="forecastDaily"></div>
@@ -114,7 +119,7 @@
 				<div id="forecastDay7" class="forecastDaily"></div>
 				<div id="forecastDay8" class="forecastDaily"></div>
 			</div>
-			<div class="weatherHourlyForecast1">
+			<div class="weatherHourlyForecast">
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
@@ -124,7 +129,7 @@
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
 			</div>
-			<div class="weatherHourlyForecast2">
+			<div class="weatherHourlyForecast">
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
@@ -134,7 +139,7 @@
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
 			</div>
-			<div class="weatherHourlyForecast3">
+			<div class="weatherHourlyForecast">
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
 				<div class="forecastHourly"></div>
