@@ -8,16 +8,20 @@
 	height: max-content;
 }
 
-.main {
-	height: 100vh;
+body {
 	background-color: rgb(255, 225, 200);
 	background-image: url('https://images.unsplash.com/photo-1561553475-ff52585fad97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.main {
+	height: 100vh;
+	visibility: hidden;
 	display: flex;
 	flex-direction: column;
-	padding: 50px;
+	padding: 4rem;
 	box-sizing: border-box;
 }
 
@@ -38,11 +42,11 @@
 .weatherExtra_humidity,
 .weatherExtra_wind,
 .weatherExtra_pressure {
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 }
 
 .weatherBasic * {
-	padding: 10px;
+	padding: 0.5rem;
 }
 
 .weatherBasic_coordLat,
@@ -52,7 +56,7 @@
 
 img {
 	display: block;
-	padding: 5px;
+	padding: 0.25rem;
 	box-sizing: border-box;
 	user-select: none;
 }
@@ -63,35 +67,34 @@ img {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: flex-start;
-	min-width: 110px;
+	min-width: 7rem;
 }
 
 .forecastDaily *,
 .forecastHourly * {
-	padding: 10px;
+	padding: 0.5rem;
 	margin: auto 0;
 }
 
 .forecastDaily .bold,
 .forecastHourly .bold {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 }
 
 .bold {
 	font-weight: 600;
 }
 
-p,
 .forecastDaily p,
 .forecastHourly p {
 	padding: 0;
+	padding-bottom: 0.25rem;
 }
 
 .allControls {
 	display: flex;
-	width: 400px;
 	flex-direction: column;
-	padding: 10px;
+	padding: 0.5rem;
 }
 
 .weatherBasic {
@@ -110,15 +113,15 @@ p,
 .extraContainer {
 	display: flex;
 	align-items: center;
-	padding: 10px;
+	padding: 0.5rem;
 }
 
 span div {
-	padding: 5px 0;
+	padding: 0.25rem 0;
 }
 
 span {
-	margin-left: 10px;
+	margin-left: 0.75rem;
 }
 
 .weatherForecast {
@@ -128,19 +131,19 @@ span {
 }
 
 .weatherBasic_icon {
-	height: 128px;
-	width: 128px;
+	height: 8rem;
+	width: 8rem;
 	display: block;
 }
 
 .weatherExtra_icon {
-	height: 48px;
-	width: 48px;
+	height: 3rem;
+	width: 3rem;
 }
 
 .weatherForecast_icon {
-	height: 64px;
-	width: 64px;
+	height: 4rem;
+	width: 4rem;
 	margin: auto 0;
 }
 
@@ -149,53 +152,46 @@ input[type='radio'] {
 }
 
 input[type='radio'] + label {
-	background-color: rgba(100, 225, 255, 0.5);
+	background-color: rgba(100, 225, 255, 0.6);
 	cursor: pointer;
 	display: block;
-	width: 120px;
 	text-align: center;
-	padding: 8px 0;
-	margin: 1px;
+	padding: 0.5rem 1rem;
 	border-radius: 5px;
 }
 
 input[type='radio']:hover + label {
-	background-color: rgba(100, 225, 255, 0.6);
+	background-color: rgba(100, 225, 255, 0.8);
 }
 
 input[type='radio']:checked + label {
-	background-color: rgba(225, 225, 0, 0.5);
-}
-
-input[type='radio']:checked:hover + label {
-	background-color: rgba(225, 225, 0, 0.6);
+	background-color: rgba(225, 225, 0, 0.8);
 }
 
 .searchType {
 	display: flex;
 	flex-direction: row;
 	box-sizing: border-box;
-	margin-top: 10px;
+	margin-top: 0.75rem;
 	justify-content: space-between;
-	font-size: 0.8rem;
+	font-size: 0.75rem;
 	user-select: none;
 }
 
 .changeUnits {
 	font-size: 0.8rem;
-	width: 130px;
 	cursor: pointer;
 	user-select: none;
 	border: none;
-	background-color: rgba(150, 100, 255, 0.5);
+	background-color: rgba(200, 100, 255, 0.6);
 	border-radius: 5px;
-	margin-left: auto;
+	margin-left: 1rem;
 	text-align: left;
-	padding-left: 10px;
+	padding: 0.25rem 0.5rem;
 }
 
 .changeUnits:hover {
-	background-color: rgba(175, 100, 255, 0.6);
+	background-color: rgba(200, 100, 255, 0.8);
 }
 
 .searchBox {
@@ -207,15 +203,14 @@ input[type='radio']:checked:hover + label {
 .searchBoxInput {
 	outline: none;
 	border: none;
-	width: 260px;
-	height: 30px;
-	background-color: rgba(255, 255, 255, 0.5);
-	padding-left: 10px;
+	background-color: rgba(255, 255, 255, 0.6);
+	padding: 0.25rem 1.5rem 0.25rem 0.5rem;
 	border-radius: 5px;
 }
 
-.searchBoxInput:hover {
-	background-color: rgba(255, 255, 255, 0.6);
+.searchBoxInput:hover,
+.searchBoxInput:focus {
+	background-color: rgba(255, 255, 255, 0.8);
 }
 
 ::placeholder {
@@ -223,18 +218,18 @@ input[type='radio']:checked:hover + label {
 	opacity: 0.8;
 }
 
-.controls {
+.searchControls {
 	display: flex;
 	flex-direction: row;
 }
 
 .searchIcon {
-	width: 24px;
-	height: 24px;
+	width: 1.5rem;
+	height: 1.5rem;
 	opacity: 0.6;
 	margin: auto;
 	cursor: pointer;
-	margin-left: -25px;
+	margin-left: -1.5rem;
 }
 
 .searchBox div {
@@ -252,11 +247,13 @@ input[type='radio']:checked:hover + label {
 .nextArrow {
 	cursor: pointer;
 	user-select: none;
+	margin: 0.25rem;
 }
 
 .dot {
 	display: inline-block;
-	padding: 4px;
+	padding: 0.25rem;
+	margin: 0.25rem;
 	border: 1px solid rgb(0, 0, 0);
 	border-radius: 50%;
 	background-color: rgba(0, 0, 0, 0);
@@ -268,21 +265,15 @@ input[type='radio']:checked:hover + label {
 	background-color: rgb(0, 0, 0);
 }
 
-.changeForecast {
-	display: flex;
-	align-items: center;
-	width: max-content;
-}
-
 .dailyBtn,
 .hourlyBtn {
-	margin-right: 20px;
-	padding: 4px 8px;
+	padding: 0.25rem 0.5rem;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.6) transparent;
 	cursor: pointer;
 	user-select: none;
 	font-size: 1.1rem;
+	margin-right: 1.25rem;
 }
 
 .dailyBtn:hover,
@@ -295,13 +286,6 @@ input[type='radio']:checked:hover + label {
 	border-color: rgb(0, 0, 0);
 	border-radius: 5px;
 	font-weight: 600;
-}
-
-.changeHours {
-	display: none;
-	width: 60px;
-	justify-content: space-between;
-	align-items: center;
 }
 
 :focus::placeholder {
@@ -324,15 +308,108 @@ input[type='radio']:checked:hover + label {
 
 .weatherBasic_temp {
 	font-size: 1.5rem;
-	text-align: right;
+	text-align: center;
 }
 
 .weatherHourlyForecast {
 	display: none;
 }
 
-.changeForecast {
+.forecastControls {
 	display: flex;
-	padding: 10px;
-	margin-bottom: 20px;
+}
+
+.changeForecast,
+.changeHours {
+	display: flex;
+	align-items: center;
+	padding: 0;
+	margin-bottom: 2rem;
+}
+
+.changeHours {
+	justify-content: space-between;
+	align-items: center;
+	visibility: hidden;
+}
+
+@media (max-width: 600px) {
+	:root {
+		font-size: 12px;
+	}
+	.main {
+		padding: 1rem;
+	}
+	.weatherDailyForecast,
+	.weatherHourlyForecast {
+		flex-direction: column;
+	}
+	.forecastDaily,
+	.forecastHourly {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+	.forecastDaily *,
+	.forecastHourly * {
+		display: flex;
+		padding: 0.5rem;
+	}
+	.forecastDaily div,
+	.forecastHourly div {
+		display: block;
+	}
+	.forecastControls {
+		flex-direction: column;
+	}
+	.changeForecast,
+	.changeHours {
+		justify-content: center;
+		margin: 0;
+		padding: 0.5rem;
+	}
+	.changeHours {
+		visibility: hidden;
+	}
+	.weatherForecast_icon {
+		height: 3rem;
+		width: 3rem;
+		padding: 0.5rem;
+	}
+	.searchControls,
+	.searchType {
+		flex-direction: row;
+	}
+	.changeUnits {
+		max-width: 5rem;
+		margin-left: 0.5rem;
+	}
+	.searchBoxInput {
+		padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+	}
+	.weatherContainer {
+		display: grid;
+		grid-template:
+			'x x'
+			'y y';
+	}
+	.weatherExtra {
+		margin: 2rem auto;
+		grid-area: y;
+	}
+	.searchType {
+		display: grid;
+		justify-content: space-between;
+		align-items: center;
+		grid-template:
+			'x x'
+			'x x';
+	}
+	input[type='radio'] + label {
+		text-align: center;
+		padding: 0.75rem 3rem;
+		margin-top: 0.5rem;
+		box-sizing: border-box;
+		border-radius: 5px;
+	}
 }
