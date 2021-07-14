@@ -4,11 +4,77 @@ const allRadioInput = document.querySelectorAll('input[type=radio');
 const searchBoxInput = document.querySelector('.searchBoxInput');
 const changeUnits = document.querySelector('.changeUnits');
 const searchIcon = document.querySelector('.searchIcon');
+const dailyBtn = document.querySelector('.dailyBtn');
+const hourlyBtn = document.querySelector('.hourlyBtn');
+const dailyForecast = document.querySelector('.weatherDailyForecast');
+const hourlyForecast = document.querySelectorAll('.weatherHourlyForecast');
+const prevArrow = document.querySelector('.prevArrow');
+const nextArrow = document.querySelector('.nextArrow');
+const allDots = document.querySelectorAll('.dot');
+const changeHours = document.querySelector('.changeHours');
 
 const keyAPI = 'c40fcb991f5231199fa7282aa3268d17';
 
+let slideIndex = 1;
 let unitsSystem = 'metric';
 let myData = {};
+
+dailyBtn.addEventListener('click', () => {
+	dailyBtn.classList.add('activeBtn');
+	dailyForecast.style.display = 'flex';
+	hourlyBtn.classList.remove('activeBtn');
+	for (let i = 0; i < hourlyForecast.length; i++) {
+		hourlyForecast[i].style.display = 'none';
+	}
+	changeHours.style.display = 'none';
+});
+
+hourlyBtn.addEventListener('click', () => {
+	hourlyBtn.classList.add('activeBtn');
+	for (let i = 0; i < hourlyForecast.length; i++) {
+		hourlyForecast[i].style.display = 'flex';
+	}
+	changeHours.style.display = 'flex';
+	dailyBtn.classList.remove('activeBtn');
+	dailyForecast.style.display = 'none';
+	changeHourly(slideIndex);
+});
+
+prevArrow.addEventListener('click', () => {
+	changeHourly((slideIndex += -1));
+});
+
+nextArrow.addEventListener('click', () => {
+	changeHourly((slideIndex += 1));
+});
+
+allDots.forEach((dot) => {
+	dot.addEventListener('click', (e) => {
+		for (let i = 0; i < allDots.length; i++) {
+			if (e.target === allDots[i]) {
+				changeHourly((slideIndex = i + 1));
+			}
+		}
+	});
+});
+
+function changeHourly(x) {
+	let i;
+	if (x > hourlyForecast.length) {
+		slideIndex = 1;
+	}
+	if (x < 1) {
+		slideIndex = hourlyForecast.length;
+	}
+	for (i = 0; i < hourlyForecast.length; i++) {
+		hourlyForecast[i].style.display = 'none';
+	}
+	for (i = 0; i < allDots.length; i++) {
+		allDots[i].classList.remove('activeDot');
+	}
+	hourlyForecast[slideIndex - 1].style.display = 'flex';
+	allDots[slideIndex - 1].classList.add('activeDot');
+}
 
 searchIcon.addEventListener('click', () => {
 	APIDataHandler(searchBoxInput.value);
@@ -61,11 +127,13 @@ function renderExtraWeather(data) {
 	document.querySelector('.weatherExtra_feels').textContent = convertTemp(
 		data.current.feels_like
 	);
+	document.querySelector('.weatherExtra_humidity').textContent =
+		data.current.humidity + ' %';
+
 	document.querySelector('.weatherExtra_wind').textContent = convertSpeed(
 		data.current.wind_speed
 	);
-	document.querySelector('.weatherExtra_humidity').textContent =
-		data.current.humidity + ' %';
+
 	document.querySelector('.weatherExtra_pressure').textContent =
 		data.current.pressure + ' hPa';
 }
@@ -74,14 +142,21 @@ function renderDailyForecast(data) {
 	const days = document.querySelectorAll('.forecastDaily');
 	for (let i = 0; i < 8; i++) {
 		days[i].innerHTML = '';
-		let temp = document.createElement('div');
-		temp.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
-			'EEE, dd.MM.yy'
+		let con = document.createElement('div');
+		let day = document.createElement('p');
+		day.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
+			'EEEE'
 		);
+		let date = document.createElement('p');
+		date.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
+			'dd.MM.yy'
+		);
+		con.append(day, date);
+		days[i].append(con);
+		let temp = document.createElement('div');
+		temp.textContent = convertTemp(data.daily[i].temp.day);
+		temp.classList.add('bold');
 		days[i].append(temp);
-		let date = document.createElement('div');
-		date.textContent = convertTemp(data.daily[i].temp.day);
-		days[i].append(date);
 		let icon = document.createElement('img');
 		icon.src = 'imgs/' + data.daily[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
@@ -93,14 +168,21 @@ function renderHourlyForecast(data) {
 	const days = document.querySelectorAll('.forecastHourly');
 	for (let i = 0; i < 24; i++) {
 		days[i].innerHTML = '';
-		let temp = document.createElement('div');
-		temp.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
-			'EEE, HH:mm'
+		let con = document.createElement('div');
+		let day = document.createElement('p');
+		day.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
+			'EEEE'
 		);
+		let hour = document.createElement('p');
+		hour.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
+			'HH:mm'
+		);
+		con.append(day, hour);
+		days[i].append(con);
+		let temp = document.createElement('div');
+		temp.textContent = convertTemp(data.hourly[i].temp);
+		temp.classList.add('bold');
 		days[i].append(temp);
-		let date = document.createElement('div');
-		date.textContent = convertTemp(data.hourly[i].temp);
-		days[i].append(date);
 		let icon = document.createElement('img');
 		icon.src = 'imgs/' + data.hourly[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
