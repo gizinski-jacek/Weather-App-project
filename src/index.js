@@ -26,7 +26,7 @@ dailyBtn.addEventListener('click', () => {
 	for (let i = 0; i < hourlyForecast.length; i++) {
 		hourlyForecast[i].style.display = 'none';
 	}
-	changeHours.style.display = 'none';
+	changeHours.style.visibility = 'hidden';
 });
 
 hourlyBtn.addEventListener('click', () => {
@@ -34,7 +34,7 @@ hourlyBtn.addEventListener('click', () => {
 	for (let i = 0; i < hourlyForecast.length; i++) {
 		hourlyForecast[i].style.display = 'flex';
 	}
-	changeHours.style.display = 'flex';
+	changeHours.style.visibility = 'visible';
 	dailyBtn.classList.remove('activeBtn');
 	dailyForecast.style.display = 'none';
 	changeHourly(slideIndex);
@@ -211,6 +211,7 @@ function dataRenderHandler() {
 	renderExtraWeather(myData);
 	renderDailyForecast(myData);
 	renderHourlyForecast(myData);
+	document.querySelector('.main').style.visibility = 'visible';
 }
 
 async function APIDataHandler(userInput) {
