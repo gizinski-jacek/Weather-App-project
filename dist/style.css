@@ -1,72 +1,124 @@
-body * {
+:root {
 	font-family: 'Courier New', Courier, monospace;
-	font-weight: 500;
+	font-size: 16px;
+	line-height: 1rem;
 }
 
-body {
+.allControls {
+	height: max-content;
+}
+
+.main {
 	height: 100vh;
 	background-color: rgb(255, 225, 200);
-	background-image: url('https://images.unsplash.com/photo-1584559759045-d5062ca44f09?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=948&q=80');
+	background-image: url('https://images.unsplash.com/photo-1561553475-ff52585fad97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	display: flex;
 	flex-direction: column;
+	padding: 50px;
+	box-sizing: border-box;
 }
 
 .weatherContainer {
 	display: flex;
 	justify-content: space-between;
-	padding: 30px;
 }
 
-.weatherBasic,
 .weatherExtra,
 .weatherForecast,
-.allControls {
-	padding: 10px;
-	border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.1);
-}
-
-img,
-.weatherBasic div,
-.weatherExtra div div,
-.weatherExtra div img,
-.forecastHourly,
-.forecastDaily {
-	padding: 5px;
-}
-
 .weatherDailyForecast,
 .weatherHourlyForecast {
+	display: flex;
+	justify-content: space-between;
+}
+
+.weatherExtra_feels,
+.weatherExtra_humidity,
+.weatherExtra_wind,
+.weatherExtra_pressure {
+	font-size: 1.4rem;
+}
+
+.weatherBasic * {
+	padding: 10px;
+}
+
+.weatherBasic_coordLat,
+.weatherBasic_coordLon {
+	font-size: 0.9rem;
+}
+
+img {
 	display: block;
-	border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.1);
+	padding: 5px;
+	box-sizing: border-box;
+	user-select: none;
 }
 
 .forecastDaily,
 .forecastHourly {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
-	width: 300px;
+	align-items: flex-start;
+	min-width: 110px;
 }
 
-.forecastDaily div,
-.forecastHourly div {
+.forecastDaily *,
+.forecastHourly * {
 	padding: 10px;
+	margin: auto 0;
+}
+
+.forecastDaily .bold,
+.forecastHourly .bold {
+	font-size: 1.2rem;
+}
+
+.bold {
+	font-weight: 600;
+}
+
+p,
+.forecastDaily p,
+.forecastHourly p {
+	padding: 0;
 }
 
 .allControls {
 	display: flex;
-	height: 70px;
 	width: 400px;
 	flex-direction: column;
+	padding: 10px;
+}
+
+.weatherBasic {
+	max-width: max-content;
+	font-size: 1rem;
 }
 
 .weatherBasic_description {
-	font-size: 20px;
+	font-size: 1.5rem;
+}
+
+.basicContainer {
+	display: flex;
+}
+
+.extraContainer {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+span div {
+	padding: 5px 0;
+}
+
+span {
+	margin-left: 10px;
 }
 
 .weatherForecast {
@@ -76,18 +128,20 @@ img,
 }
 
 .weatherBasic_icon {
-	height: 96px;
-	width: 96px;
+	height: 128px;
+	width: 128px;
+	display: block;
 }
 
 .weatherExtra_icon {
-	height: 32px;
-	width: 32px;
+	height: 48px;
+	width: 48px;
 }
 
 .weatherForecast_icon {
-	height: 24px;
-	width: 24px;
+	height: 64px;
+	width: 64px;
+	margin: auto 0;
 }
 
 input[type='radio'] {
@@ -95,13 +149,14 @@ input[type='radio'] {
 }
 
 input[type='radio'] + label {
-	border: 1px solid rgba(0, 0, 0, 0.5);
 	background-color: rgba(100, 225, 255, 0.5);
 	cursor: pointer;
 	display: block;
 	width: 120px;
 	text-align: center;
 	padding: 8px 0;
+	margin: 1px;
+	border-radius: 5px;
 }
 
 input[type='radio']:hover + label {
@@ -109,7 +164,6 @@ input[type='radio']:hover + label {
 }
 
 input[type='radio']:checked + label {
-	border: 1px solid rgba(0, 0, 0, 0.5);
 	background-color: rgba(225, 225, 0, 0.5);
 }
 
@@ -121,31 +175,23 @@ input[type='radio']:checked:hover + label {
 	display: flex;
 	flex-direction: row;
 	box-sizing: border-box;
-	margin-top: auto;
+	margin-top: 10px;
 	justify-content: space-between;
-	font-size: 12px;
-}
-
-#cityName + label {
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-}
-
-#cityID + label {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+	font-size: 0.8rem;
+	user-select: none;
 }
 
 .changeUnits {
-	font-size: 12px;
-	width: 160px;
+	font-size: 0.8rem;
+	width: 130px;
 	cursor: pointer;
-	border: 1px solid rgba(0, 0, 0, 0.5);
+	user-select: none;
+	border: none;
 	background-color: rgba(150, 100, 255, 0.5);
 	border-radius: 5px;
 	margin-left: auto;
 	text-align: left;
-	padding: 0 10px;
+	padding-left: 10px;
 }
 
 .changeUnits:hover {
@@ -161,7 +207,7 @@ input[type='radio']:checked:hover + label {
 .searchBoxInput {
 	outline: none;
 	border: none;
-	width: 230px;
+	width: 260px;
 	height: 30px;
 	background-color: rgba(255, 255, 255, 0.5);
 	padding-left: 10px;
@@ -173,7 +219,7 @@ input[type='radio']:checked:hover + label {
 }
 
 ::placeholder {
-	color: black;
+	color: rgb(0, 0, 0);
 	opacity: 0.8;
 }
 
@@ -183,13 +229,12 @@ input[type='radio']:checked:hover + label {
 }
 
 .searchIcon {
-	width: 16px;
-	height: 16px;
+	width: 24px;
+	height: 24px;
 	opacity: 0.6;
 	margin: auto;
 	cursor: pointer;
 	margin-left: -25px;
-	padding: 0;
 }
 
 .searchBox div {
@@ -203,32 +248,91 @@ input[type='radio']:checked:hover + label {
 	opacity: 0.6;
 }
 
+.prevArrow,
+.nextArrow {
+	cursor: pointer;
+	user-select: none;
+}
+
+.dot {
+	display: inline-block;
+	padding: 4px;
+	border: 1px solid rgb(0, 0, 0);
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0);
+	user-select: none;
+	cursor: pointer;
+}
+
+.activeDot {
+	background-color: rgb(0, 0, 0);
+}
+
+.changeForecast {
+	display: flex;
+	align-items: center;
+	width: max-content;
+}
+
+.dailyBtn,
+.hourlyBtn {
+	margin-right: 20px;
+	padding: 4px 8px;
+	border: 2px solid;
+	border-color: rgba(0, 0, 0, 0.6) transparent;
+	cursor: pointer;
+	user-select: none;
+	font-size: 1.1rem;
+}
+
+.dailyBtn:hover,
+.hourlyBtn:hover {
+	border-color: rgba(0, 0, 0, 0.6);
+}
+
+.activeBtn,
+.activeBtn:hover {
+	border-color: rgb(0, 0, 0);
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.changeHours {
+	display: none;
+	width: 60px;
+	justify-content: space-between;
+	align-items: center;
+}
+
 :focus::placeholder {
 	opacity: 0.3;
 }
 
 .forecastContainer {
-	display: flex;
-	padding: 30px;
 	margin-top: auto;
-	justify-content: space-between;
-}
-
-.weatherBasic,
-.weatherExtra {
-	display: block;
-	height: auto;
 }
 
 .weatherExtra {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	height: max-content;
 }
 
 .searchBoxInput {
-	font-size: 14px;
+	font-size: 0.9rem;
 }
 
 .weatherBasic_temp {
-	font-size: 30px;
+	font-size: 1.5rem;
+	text-align: right;
+}
+
+.weatherHourlyForecast {
+	display: none;
+}
+
+.changeForecast {
+	display: flex;
+	padding: 10px;
+	margin-bottom: 20px;
 }
