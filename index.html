@@ -8,146 +8,168 @@
 		<link href="style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		<div class="weatherContainer">
-			<div style="display: flex">
-				<div class="weatherBasic">
-					<div class="weatherBasic_description"></div>
-					<div class="weatherBasic_location"></div>
-					<div class="weatherBasic_timeWeekday"></div>
-					<div class="weatherBasic_date"></div>
-					<div class="weatherBasic_coordLat"></div>
-					<div class="weatherBasic_coordLon"></div>
-				</div>
-				<div class="weatherBasic">
-					<div class="weatherBasic_temp"></div>
-					<img class="weatherBasic_icon" src="" />
-				</div>
-			</div>
-			<div class="allControls">
-				<div class="controls">
-					<div class="searchBox">
-						<input
-							type="search"
-							class="searchBoxInput"
-							placeholder="e.g. Amsterdam, NL"
-						/>
-						<img
-							class="searchIcon"
-							src="/dist/imgs/search.svg"
-							alt="search"
-						/>
+		<div class="main">
+			<div class="weatherContainer">
+				<div class="basicContainer">
+					<div class="weatherBasic">
+						<div class="weatherBasic_description bold"></div>
+						<div class="weatherBasic_location"></div>
+						<div class="weatherBasic_timeWeekday"></div>
+						<div class="weatherBasic_date"></div>
+						<div class="weatherBasic_coordLat"></div>
+						<div class="weatherBasic_coordLon"></div>
 					</div>
-					<button type="button" class="changeUnits">
-						Switch to Imperial
-					</button>
+					<div class="weatherBasic">
+						<div class="weatherBasic_temp bold"></div>
+						<img class="weatherBasic_icon" src="" />
+					</div>
 				</div>
-				<div class="searchType">
-					<input
-						type="radio"
-						id="cityName"
-						name="locationType"
-						autocomplete="off"
-						checked
-					/>
-					<label for="cityName">City Name</label>
-					<input
-						type="radio"
-						id="cityZip"
-						name="locationType"
-						autocomplete="off"
-					/>
-					<label for="cityZip">Zip-Code</label>
-					<input
-						type="radio"
-						id="cityLatLon"
-						name="locationType"
-						autocomplete="off"
-					/>
-					<label for="cityLatLon">Lat Lon</label>
-					<input
-						type="radio"
-						id="cityID"
-						name="locationType"
-						autocomplete="off"
-					/>
-					<label for="cityID">City ID</label>
+				<div class="allControls">
+					<div class="controls">
+						<div class="searchBox">
+							<input
+								type="search"
+								class="searchBoxInput"
+								placeholder="e.g. Amsterdam, NL"
+							/>
+							<img
+								class="searchIcon"
+								src="/dist/imgs/search.svg"
+								alt="search"
+							/>
+						</div>
+						<button type="button" class="changeUnits">
+							Switch to Imperial
+						</button>
+					</div>
+					<div class="searchType">
+						<input
+							type="radio"
+							id="cityName"
+							name="locationType"
+							autocomplete="off"
+							checked
+						/>
+						<label for="cityName">City Name</label>
+						<input
+							type="radio"
+							id="cityZip"
+							name="locationType"
+							autocomplete="off"
+						/>
+						<label for="cityZip">Zip-Code</label>
+						<input
+							type="radio"
+							id="cityLatLon"
+							name="locationType"
+							autocomplete="off"
+						/>
+						<label for="cityLatLon">Lat Lon</label>
+						<input
+							type="radio"
+							id="cityID"
+							name="locationType"
+							autocomplete="off"
+						/>
+						<label for="cityID">City ID</label>
+					</div>
+				</div>
+				<div class="weatherExtra">
+					<div class="extraContainer">
+						<img
+							class="weatherExtra_icon"
+							src="/dist/imgs/feel.svg"
+							alt="feelsLike"
+						/>
+						<span>
+							<div class="weatherExtra_label">Feels Like</div>
+							<div class="weatherExtra_feels bold"></div>
+						</span>
+					</div>
+					<div class="extraContainer">
+						<img
+							class="weatherExtra_icon"
+							src="/dist/imgs/wind.svg"
+							alt="feelsLike"
+						/><span>
+							<div class="weatherExtra_label">Wind Speed</div>
+							<div class="weatherExtra_wind bold"></div
+						></span>
+					</div>
+					<div class="extraContainer">
+						<img
+							class="weatherExtra_icon"
+							src="/dist/imgs/hum.svg"
+							alt="feelsLike"
+						/><span>
+							<div class="weatherExtra_label">Humidity</div>
+							<div class="weatherExtra_humidity bold"></div
+						></span>
+					</div>
+					<div class="extraContainer">
+						<img
+							class="weatherExtra_icon"
+							src="/dist/imgs/press.svg"
+							alt="feelsLike"
+						/><span>
+							<div class="weatherExtra_label">Pressure</div>
+							<div class="weatherExtra_pressure bold"></div
+						></span>
+					</div>
 				</div>
 			</div>
-			<div class="weatherExtra">
-				<div>
-					<img
-						class="weatherExtra_icon"
-						src="/dist/imgs/feel.svg"
-						alt="feelsLike"
-					/>
-					<div class="weatherExtra_feels"></div>
+			<div class="forecastContainer">
+				<div class="changeForecast" style="display: flex">
+					<div class="dailyBtn activeBtn">Daily</div>
+					<div class="hourlyBtn">Hourly</div>
+					<div class="changeHours">
+						<div class="prevArrow">&#10094;</div>
+						<div class="dot"></div>
+						<div class="dot"></div>
+						<div class="dot"></div>
+						<div class="nextArrow">&#10095;</div>
+					</div>
 				</div>
-				<div>
-					<img
-						class="weatherExtra_icon"
-						src="/dist/imgs/wind.svg"
-						alt="feelsLike"
-					/>
-					<div class="weatherExtra_wind"></div>
+				<div class="weatherDailyForecast">
+					<div id="forecastDay1" class="forecastDaily"></div>
+					<div id="forecastDay2" class="forecastDaily"></div>
+					<div id="forecastDay3" class="forecastDaily"></div>
+					<div id="forecastDay4" class="forecastDaily"></div>
+					<div id="forecastDay5" class="forecastDaily"></div>
+					<div id="forecastDay6" class="forecastDaily"></div>
+					<div id="forecastDay7" class="forecastDaily"></div>
+					<div id="forecastDay8" class="forecastDaily"></div>
 				</div>
-				<div>
-					<img
-						class="weatherExtra_icon"
-						src="/dist/imgs/hum.svg"
-						alt="feelsLike"
-					/>
-					<div class="weatherExtra_humidity"></div>
+				<div class="weatherHourlyForecast">
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
 				</div>
-				<div>
-					<img
-						class="weatherExtra_icon"
-						src="/dist/imgs/press.svg"
-						alt="feelsLike"
-					/>
-					<div class="weatherExtra_pressure"></div>
+				<div class="weatherHourlyForecast">
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
 				</div>
-			</div>
-		</div>
-		<div class="forecastContainer">
-			<div class="weatherDailyForecast">
-				<div id="forecastDay1" class="forecastDaily"></div>
-				<div id="forecastDay2" class="forecastDaily"></div>
-				<div id="forecastDay3" class="forecastDaily"></div>
-				<div id="forecastDay4" class="forecastDaily"></div>
-				<div id="forecastDay5" class="forecastDaily"></div>
-				<div id="forecastDay6" class="forecastDaily"></div>
-				<div id="forecastDay7" class="forecastDaily"></div>
-				<div id="forecastDay8" class="forecastDaily"></div>
-			</div>
-			<div class="weatherHourlyForecast">
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-			</div>
-			<div class="weatherHourlyForecast">
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-			</div>
-			<div class="weatherHourlyForecast">
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
-				<div class="forecastHourly"></div>
+				<div class="weatherHourlyForecast">
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+					<div class="forecastHourly"></div>
+				</div>
 			</div>
 		</div>
 		<script src="main.js" type="text/javascript"></script>
