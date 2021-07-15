@@ -193,7 +193,7 @@ function renderHourlyForecast(data) {
 function convertTemp(temp) {
 	if (unitsSystem === 'metric') {
 		return (temp - 273.15).toFixed(1) + ' °C';
-	} else if ('imperial') {
+	} else if (unitsSystem === 'imperial') {
 		return (temp * 1.8 - 459.67).toFixed(1) + ' °F';
 	}
 }
@@ -222,7 +222,8 @@ async function APIDataHandler(userInput) {
 		myData = { ...responseData, ...locationData };
 		dataRenderHandler();
 	} catch (error) {
-		console.log(error);
+		console.log('APIDataHandler: ' + error);
+		loadError();
 	}
 }
 
@@ -256,14 +257,16 @@ function formatQuery(value) {
 }
 
 function loadError() {
-	alert('err');
+	alert(
+		'Error! Could not get the location. Make sure you chose the correct search type.'
+	);
 }
 
 allRadioInput.forEach((radio) => {
 	radio.addEventListener('click', () => {
 		switch (checkedRadioID()) {
 			case 'cityName':
-				searchBoxInput.placeholder = 'e.g. Amsterdam, NL';
+				searchBoxInput.placeholder = 'e.g. New York, US';
 				break;
 			case 'cityZip':
 				searchBoxInput.placeholder = 'e.g. 94040, US';
@@ -298,7 +301,7 @@ async function getCoordinates(query) {
 		};
 		return coords;
 	} catch (error) {
-		console.log(error);
+		console.log('getCoordinates: ' + error);
 	}
 }
 
@@ -318,7 +321,7 @@ async function getOneCallData(coord) {
 		const data = await response.json();
 		return data;
 	} catch (error) {
-		console.log(error);
+		console.log('getOneCallData: ' + error);
 	}
 }
 
