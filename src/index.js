@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 const allRadioInput = document.querySelectorAll('input[type=radio');
-const searchBoxInput = document.querySelector('.searchBoxInput');
+const searchBoxInput = document.getElementById('searchBoxInput');
 const changeUnits = document.querySelector('.changeUnits');
 const searchIcon = document.querySelector('.searchIcon');
 const dailyBtn = document.querySelector('.dailyBtn');
@@ -13,7 +13,7 @@ const nextArrow = document.querySelector('.nextArrow');
 const allDots = document.querySelectorAll('.dot');
 const changeHours = document.querySelector('.changeHours');
 
-const keyAPI = 'c40fcb991f5231199fa7282aa3268d17';
+const keyAPI = 'd4d662ab03fdbbf46e6cd2623cccdfad';
 
 let slideIndex = 1;
 let unitsSystem = 'metric';
@@ -26,7 +26,7 @@ dailyBtn.addEventListener('click', () => {
 	for (let i = 0; i < hourlyForecast.length; i++) {
 		hourlyForecast[i].style.display = 'none';
 	}
-	changeHours.style.visibility = 'hidden';
+	changeHours.style.display = 'none';
 });
 
 hourlyBtn.addEventListener('click', () => {
@@ -34,7 +34,7 @@ hourlyBtn.addEventListener('click', () => {
 	for (let i = 0; i < hourlyForecast.length; i++) {
 		hourlyForecast[i].style.display = 'flex';
 	}
-	changeHours.style.visibility = 'visible';
+	changeHours.style.display = 'flex';
 	dailyBtn.classList.remove('activeBtn');
 	dailyForecast.style.display = 'none';
 	changeHourly(slideIndex);
@@ -90,10 +90,10 @@ searchBoxInput.addEventListener('keypress', (e) => {
 
 changeUnits.addEventListener('click', (e) => {
 	if (unitsSystem === 'metric') {
-		e.target.textContent = 'Switch to Metric';
+		e.target.className = 'changeUnits imperial';
 		unitsSystem = 'imperial';
 	} else if (unitsSystem === 'imperial') {
-		e.target.textContent = 'Switch to Imperial';
+		e.target.className = 'changeUnits metric';
 		unitsSystem = 'metric';
 	}
 	dataRenderHandler();
@@ -128,14 +128,14 @@ function renderExtraWeather(data) {
 		data.current.feels_like
 	);
 	document.querySelector('.weatherExtra_humidity').textContent =
-		data.current.humidity + ' %';
+		data.current.humidity + '%';
 
 	document.querySelector('.weatherExtra_wind').textContent = convertSpeed(
 		data.current.wind_speed
 	);
 
 	document.querySelector('.weatherExtra_pressure').textContent =
-		data.current.pressure + ' hPa';
+		data.current.pressure + '  hPa';
 }
 
 function renderDailyForecast(data) {
@@ -143,24 +143,30 @@ function renderDailyForecast(data) {
 	for (let i = 0; i < 8; i++) {
 		days[i].innerHTML = '';
 		let con = document.createElement('div');
-		let day = document.createElement('p');
-		day.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
-			'EEEE'
-		);
-		let date = document.createElement('p');
+		con.className = 'forecastMetadata';
+
+		let fullDate = document.createElement('span');
+		fullDate.className = 'date';
+
+		let day = document.createElement('h3');
+		day.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat('EEEE');
+
+		let date = document.createElement('h3');
 		date.textContent = DateTime.fromSeconds(data.daily[i].dt).toFormat(
 			'dd.MM.yy'
 		);
-		con.append(day, date);
-		days[i].append(con);
-		let temp = document.createElement('div');
+
+		let temp = document.createElement('h2');
+		temp.className = 'temp';
 		temp.textContent = convertTemp(data.daily[i].temp.day);
-		temp.classList.add('bold');
-		days[i].append(temp);
+
 		let icon = document.createElement('img');
 		icon.src = 'imgs/' + data.daily[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
-		days[i].append(icon);
+
+		fullDate.append(day, date);
+		con.append(fullDate, temp);
+		days[i].append(con, icon);
 	}
 }
 
@@ -169,32 +175,38 @@ function renderHourlyForecast(data) {
 	for (let i = 0; i < 24; i++) {
 		days[i].innerHTML = '';
 		let con = document.createElement('div');
-		let day = document.createElement('p');
-		day.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
-			'EEEE'
-		);
-		let hour = document.createElement('p');
+		con.className = 'forecastMetadata';
+
+		let fullDate = document.createElement('span');
+		fullDate.className = 'date';
+
+		let day = document.createElement('h3');
+		day.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat('EEEE');
+
+		let hour = document.createElement('h3');
 		hour.textContent = DateTime.fromSeconds(data.hourly[i].dt).toFormat(
 			'HH:mm'
 		);
-		con.append(day, hour);
-		days[i].append(con);
-		let temp = document.createElement('div');
+
+		let temp = document.createElement('h2');
+		temp.className = 'temp';
 		temp.textContent = convertTemp(data.hourly[i].temp);
-		temp.classList.add('bold');
-		days[i].append(temp);
+
 		let icon = document.createElement('img');
 		icon.src = 'imgs/' + data.hourly[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
-		days[i].append(icon);
+
+		fullDate.append(day, hour);
+		con.append(fullDate, temp);
+		days[i].append(con, icon);
 	}
 }
 
 function convertTemp(temp) {
 	if (unitsSystem === 'metric') {
-		return (temp - 273.15).toFixed(1) + ' °C';
+		return (temp - 273.15).toFixed(1) + '°C';
 	} else if (unitsSystem === 'imperial') {
-		return (temp * 1.8 - 459.67).toFixed(1) + ' °F';
+		return (temp * 1.8 - 459.67).toFixed(1) + '°F';
 	}
 }
 
