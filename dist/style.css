@@ -28,6 +28,12 @@ img {
 	user-select: none;
 }
 
+button {
+	background: none;
+	font: inherit;
+	cursor: pointer;
+}
+
 body {
 	background-color: rgb(150, 150, 150);
 	background-image: url('https://images.unsplash.com/photo-1561553475-ff52585fad97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80');
@@ -154,7 +160,6 @@ body {
 	border: none;
 	border-radius: 5px;
 	background-color: rgba(175, 100, 255, 0.6);
-	cursor: pointer;
 	user-select: none;
 }
 
@@ -186,12 +191,12 @@ input[type='radio'] {
 .searchType label {
 	font-size: 0.9rem;
 	background-color: rgba(100, 255, 255, 0.6);
-	cursor: pointer;
 	display: block;
 	text-align: center;
 	padding: 0.75rem 1rem;
 	border-radius: 5px;
 	white-space: nowrap;
+	cursor: pointer;
 }
 
 .searchType label:hover {
@@ -262,7 +267,6 @@ input[type='radio'] {
 	padding: 0.5rem;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.6) transparent;
-	cursor: pointer;
 	user-select: none;
 	font-size: 1.1rem;
 	margin: 1rem;
@@ -280,6 +284,7 @@ input[type='radio'] {
 	font-weight: 600;
 	color: rgba(255, 255, 255, 0.9);
 	background-color: rgba(0, 0, 0, 0.25);
+	cursor: initial;
 }
 
 .prevArrow,
