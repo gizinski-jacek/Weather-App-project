@@ -120,7 +120,7 @@ function renderBasicWeather(data) {
 		data.current.temp
 	);
 	document.querySelector('.weatherBasic_icon').src =
-		'imgs/' + data.current.weather[0].icon + '.svg';
+		'./imgs/' + data.current.weather[0].icon + '.svg';
 }
 
 function renderExtraWeather(data) {
@@ -161,7 +161,7 @@ function renderDailyForecast(data) {
 		temp.textContent = convertTemp(data.daily[i].temp.day);
 
 		let icon = document.createElement('img');
-		icon.src = 'imgs/' + data.daily[i].weather[0].icon + '.svg';
+		icon.src = './imgs/' + data.daily[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
 
 		fullDate.append(day, date);
@@ -193,7 +193,7 @@ function renderHourlyForecast(data) {
 		temp.textContent = convertTemp(data.hourly[i].temp);
 
 		let icon = document.createElement('img');
-		icon.src = 'imgs/' + data.hourly[i].weather[0].icon + '.svg';
+		icon.src = './imgs/' + data.hourly[i].weather[0].icon + '.svg';
 		icon.classList.add('weatherForecast_icon');
 
 		fullDate.append(day, hour);
