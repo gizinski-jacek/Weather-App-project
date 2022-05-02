@@ -350,7 +350,7 @@ input[type='radio'] {
 	}
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1080px) {
 	.weatherContainer {
 		display: grid;
 		grid-template-areas:
