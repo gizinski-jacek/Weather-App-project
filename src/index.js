@@ -223,7 +223,34 @@ function dataRenderHandler() {
 	renderExtraWeather(myData);
 	renderDailyForecast(myData);
 	renderHourlyForecast(myData);
-	document.querySelector('.main').style.visibility = 'visible';
+	document.querySelector('.loading_icon').style.display = 'none';
+	document.querySelector('.main').style.display = 'flex';
+}
+
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(APIDataHandler, showGeoError);
+	} else {
+		console.log('Geolocation is not supported by this browser.');
+		APIDataHandler('Amsterdam, NL');
+	}
+}
+
+function showGeoError(error) {
+	switch (error.code) {
+		case error.PERMISSION_DENIED:
+			APIDataHandler('Amsterdam, NL');
+			break;
+		case error.POSITION_UNAVAILABLE:
+			console.log('Location information is unavailable.');
+			break;
+		case error.TIMEOUT:
+			console.log('The request to get user location timed out.');
+			break;
+		case error.UNKNOWN_ERROR:
+			console.log('An unknown error occurred.');
+			break;
+	}
 }
 
 async function APIDataHandler(userInput) {
@@ -252,7 +279,13 @@ function checkedRadioID() {
 function formatQuery(value) {
 	let query = null;
 	let arr = null;
-	switch (checkedRadioID()) {
+	let type = null;
+	if (value.coords) {
+		type = 'geolocation';
+	} else {
+		type = checkedRadioID();
+	}
+	switch (type) {
 		case 'cityName':
 			return (query = 'q=' + value);
 		case 'cityZip':
@@ -265,6 +298,9 @@ function formatQuery(value) {
 			return query;
 		case 'cityID':
 			return (query = 'id=' + value);
+		case 'geolocation':
+			query = 'lat=' + value.coords.latitude + '&lon=' + value.coords.longitude;
+			return query;
 	}
 }
 
@@ -337,4 +373,6 @@ async function getOneCallData(coord) {
 	}
 }
 
-APIDataHandler('Amsterdam, NL');
+// APIDataHandler('Amsterdam, NL');
+
+getLocation();
