@@ -229,26 +229,33 @@ function dataRenderHandler() {
 
 function getLocation() {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(APIDataHandler, showGeoError);
+		navigator.geolocation.getCurrentPosition(
+			APIDataHandler,
+			handleGeolocationError
+		);
 	} else {
 		console.log('Geolocation is not supported by this browser.');
 		APIDataHandler('Amsterdam, NL');
 	}
 }
 
-function showGeoError(error) {
+function handleGeolocationError(error) {
 	switch (error.code) {
 		case error.PERMISSION_DENIED:
+			console.log('User denied the request for Geolocation.');
 			APIDataHandler('Amsterdam, NL');
 			break;
 		case error.POSITION_UNAVAILABLE:
 			console.log('Location information is unavailable.');
+			APIDataHandler('Amsterdam, NL');
 			break;
 		case error.TIMEOUT:
 			console.log('The request to get user location timed out.');
+			APIDataHandler('Amsterdam, NL');
 			break;
 		case error.UNKNOWN_ERROR:
 			console.log('An unknown error occurred.');
+			APIDataHandler('Amsterdam, NL');
 			break;
 	}
 }
@@ -372,7 +379,5 @@ async function getOneCallData(coord) {
 		console.log('getOneCallData: ' + error);
 	}
 }
-
-// APIDataHandler('Amsterdam, NL');
 
 getLocation();
