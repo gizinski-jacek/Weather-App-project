@@ -90,10 +90,10 @@ searchBoxInput.addEventListener('keypress', (e) => {
 
 changeUnits.addEventListener('click', (e) => {
 	if (unitsSystem === 'metric') {
-		e.target.className = 'changeUnits imperial';
+		e.target.textContent = 'Switch to Metric';
 		unitsSystem = 'imperial';
 	} else if (unitsSystem === 'imperial') {
-		e.target.className = 'changeUnits metric';
+		e.target.textContent = 'Switch to Imperial';
 		unitsSystem = 'metric';
 	}
 	dataRenderHandler();
