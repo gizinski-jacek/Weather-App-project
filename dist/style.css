@@ -174,7 +174,7 @@ body {
 }
 
 .changeUnits {
-	font-size: 0.85rem;
+	font-size: 0.8rem;
 	text-align: center;
 	width: 120px;
 	padding: 0.25rem 0.5rem;
@@ -183,14 +183,6 @@ body {
 	border-radius: 5px;
 	background-color: rgba(175, 100, 255, 0.6);
 	user-select: none;
-}
-
-.changeUnits.metric::after {
-	content: 'Switch to Imperial';
-}
-
-.changeUnits.imperial::after {
-	content: 'Switch to Metric';
 }
 
 .changeUnits:hover {
@@ -396,14 +388,6 @@ input[type='radio'] {
 
 	.changeUnits {
 		width: 80px;
-	}
-
-	.changeUnits.metric::after {
-		content: 'Imperial';
-	}
-
-	.changeUnits.imperial::after {
-		content: 'Metric';
 	}
 
 	.searchType label {
