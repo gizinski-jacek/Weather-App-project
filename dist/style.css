@@ -10,17 +10,14 @@
 h2 {
 	font-size: 1.25rem;
 	font-weight: 600;
-	white-space: nowrap;
 }
 
 h3 {
 	font-size: 1rem;
-	white-space: nowrap;
 }
 
 h4 {
 	font-size: 0.9rem;
-	white-space: nowrap;
 }
 
 img {
@@ -209,7 +206,7 @@ input[type='radio'] {
 	text-align: center;
 	padding: 0.75rem 1rem;
 	border-radius: 5px;
-	white-space: nowrap;
+	min-width: fit-content;
 	cursor: pointer;
 }
 
