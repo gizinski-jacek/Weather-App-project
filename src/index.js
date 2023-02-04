@@ -16,7 +16,7 @@ const changeHours = document.querySelector('.changeHours');
 const keyAPI = 'd4d662ab03fdbbf46e6cd2623cccdfad';
 
 let slideIndex = 1;
-let unitsSystem = 'metric';
+let metricSystem = true;
 let myData = {};
 
 dailyBtn.addEventListener('click', () => {
@@ -89,13 +89,12 @@ searchBoxInput.addEventListener('keypress', (e) => {
 });
 
 changeUnits.addEventListener('click', (e) => {
-	if (unitsSystem === 'metric') {
+	if (metricSystem) {
 		e.target.textContent = 'Switch to Metric';
-		unitsSystem = 'imperial';
-	} else if (unitsSystem === 'imperial') {
+	} else {
 		e.target.textContent = 'Switch to Imperial';
-		unitsSystem = 'metric';
 	}
+	metricSystem = !metricSystem;
 	dataRenderHandler();
 });
 
@@ -203,18 +202,18 @@ function renderHourlyForecast(data) {
 }
 
 function convertTemp(temp) {
-	if (unitsSystem === 'metric') {
-		return (temp - 273.15).toFixed(1) + '°C';
-	} else if (unitsSystem === 'imperial') {
-		return (temp * 1.8 - 459.67).toFixed(1) + '°F';
+	if (metricSystem) {
+		return Math.round((temp - 273.15) * 10) / 10 + '°C';
+	} else {
+		return Math.round((temp * 1.8 - 459.67) * 10) / 10 + '°F';
 	}
 }
 
 function convertSpeed(speed) {
-	if (unitsSystem === 'metric') {
-		return (speed * 3.6).toFixed(1) + ' km/h';
-	} else if ('imperial') {
-		return (speed * 2.2369).toFixed(1) + ' mph';
+	if (metricSystem) {
+		return Math.round(speed * 10) / 10 + ' m/s';
+	} else {
+		return Math.round(speed * 2.236936 * 10) / 10 + ' mph';
 	}
 }
 
