@@ -252,7 +252,7 @@ function handleGeolocationError(error) {
 			console.log('The request to get user location timed out.');
 			APIDataHandler('Amsterdam, NL');
 			break;
-		case error.UNKNOWN_ERROR:
+		default:
 			console.log('An unknown error occurred.');
 			APIDataHandler('Amsterdam, NL');
 			break;
